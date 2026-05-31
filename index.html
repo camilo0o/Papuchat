@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>PapuChat</title>
+        <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <main class="app">
+        <nav class = "chat-list">
+            <header class="chat-list-sidebar">
+                <h1>PapuChat</h1>
+            </header>
+            <section class="chat-container">
+                <!-- Aquí se agregarán dinámicamente los chats -->
+                <div class="avatar"></div>
+
+                <div class="chat-info">
+
+                <h3>Juan Pérez</h3>
+
+                <p>Último mensaje...</p>
+
+                </div>
+                
+            </section>
+        </nav>
+        <section class="chat-window">
+            <header class="chat-header">
+
+                <div class="chat-user">
+
+                    <img id="chat-avatar"class="avatar">
+                    <h2 id="chat-username">Juan Pérez</h2> <!-- Aquí se actualizará dinámicamente con el nombre del usuario seleccionado -->
+                </div>
+
+            </header>
+
+            <section id="messages">
+            </section>
+
+            <form id="message-form">
+
+                <input id="message-input" type="text" placeholder="Escribe un mensaje...">
+                <button type="submit"> Enviar </button>
+
+            </form>
+        </section>
+    </main>
+</body>
+</html>

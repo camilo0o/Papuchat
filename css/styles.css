@@ -1,0 +1,84 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Gill Sans",
+                 "Gill Sans MT",
+                 Calibri,
+                 "Trebuchet MS",
+                 sans-serif;
+}
+body {
+    height: 100vh;
+    background-color: #dadada;
+}
+.app {
+    display: flex;
+    height: 100vh;
+}
+.chat-list{
+    width: 30%;
+    display: flex;
+    flex-direction: column;
+    background-color: #f0f0f0;
+    border-right: 1px solid #4ebd33;
+}
+.chat-list-sidebar {
+    padding: 20px;
+    background-color: #005c4b;
+    color: white;
+    text-align: center;
+}
+
+.chat-window {
+    width: 70%;
+    background-color: rgb(168, 163, 163);
+    display: flex;
+    flex-direction: column;
+}
+.chat-header {
+    padding: 20px;
+    background-color: #005c4b;
+    color: white;
+}
+.chat-user {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    font-size: 18px;
+    font-weight: bold;
+}
+.avatar {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background-color: #ccc;
+    
+}
+
+#messages {
+    flex: 1;
+    padding: 20px;
+    overflow-y: auto;
+}
+#message-form{
+    padding: 20px;
+    background-color: #f0f0f0;
+    display: flex;
+    gap: 10px;
+}
+#message-input{
+    flex: 1;
+    padding: 10px;
+    border-radius: 10px;
+    border: 1px solid #ccc;
+    outline: none;
+}
+button{
+    padding: 15px 20px;
+    border: none;
+    border-radius: 10px;
+    background-color:#005c4b;
+    color: white;
+    cursor: pointer;
+}
