@@ -82,3 +82,39 @@ button{
     color: white;
     cursor: pointer;
 }
+
+/* responsive mobile */
+@media (max-width: 770px) {
+    .chat-list {
+        width: 100%;
+    }
+    .chat-window {
+        width: 100%;
+        display: none;
+    }
+    .app.showing-chat .chat-list{
+        display: none;
+    }
+    .app.showing-chat .chat-window{
+        display: flex;
+    }
+
+    #back-button {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        background-color: transparent;
+        border: none;
+        color: white;
+        font-size: 16px;
+        cursor: pointer;
+        padding: 0;
+        border-radius: 0;
+    }
+}
+/* en desktop nunca mostrar el boton volver */
+@media(min-width: 771px) {
+    #back-button {
+        display: none;
+    }
+}
