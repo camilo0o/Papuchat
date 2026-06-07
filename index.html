@@ -4,51 +4,47 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta charset="UTF-8">
     <title>PapuChat</title>
-        <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
     <main class="app">
-        <nav class = "chat-list">
+        <nav class="chat-list" aria-label="Lista de conversaciones">
             <header class="chat-list-sidebar">
                 <h1>PapuChat</h1>
             </header>
-            <section class="chat-container">
-                <!-- Aquí se agregarán dinámicamente los chats -->
-                <div class="avatar"></div>
-
-                <div class="chat-info">
-
-                <h3>Juan Pérez</h3>
-
-                <p>Último mensaje...</p>
-
-                </div>
-                
-            </section>
+            <ul id="chat-list-items">
+                <!-- Los chats se renderizan dinámicamente desde JS -->
+            </ul>
         </nav>
-        <section class="chat-window">
+
+        <section class="chat-window" aria-label="Conversación activa">
             <header class="chat-header">
-
                 <div class="chat-user">
-                    <button id="back-button">&larr; volver</button>
-
-                    <img id="chat-avatar"class="avatar">
-                    <h2 id="chat-username">Juan Pérez</h2> <!-- Aquí se actualizará dinámicamente con el nombre del usuario seleccionado -->
+                    <button id="back-button" aria-label="Volver a lista de chats">&larr; Volver</button>
+                    <img id="chat-avatar" class="avatar" alt="Avatar del contacto">
+                    <h2 id="chat-username">Seleccioná un chat</h2>
                 </div>
-
             </header>
 
-            <section id="messages">
+            <section id="messages" aria-live="polite" aria-label="Mensajes">
             </section>
 
-            <form id="message-form">
-
-                <input id="message-input" type="text" placeholder="Escribe un mensaje...">
-                <button type="submit"> Enviar </button>
-
+            <form id="message-form" novalidate>
+                <label for="message-input" class="visually-hidden">Escribir mensaje</label>
+                <input
+                    id="message-input"
+                    type="text"
+                    placeholder="Escribe un mensaje..."
+                    autocomplete="off"
+                    aria-label="Escribe un mensaje"
+                >
+                <button type="submit">Enviar</button>
             </form>
         </section>
     </main>
-<script src="js/script.js"></script>
+    <script src="js/storage.js"></script>
+    <script src="js/api.js"></script>
+    <script src="js/ui.js"></script>
+    <script src="js/script.js"></script>
 </body>
 </html>
