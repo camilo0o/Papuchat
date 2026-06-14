@@ -59,3 +59,85 @@ async function openChat(chat) {
 }
 
 loadChats();
+
+//envio de mensajes de texto
+messageForm.addEventListener('submit', (e) => {
+    e.preventDefault();
+    const texto = messageInput.value.trim();
+    if (!texto || !currentChat) return;
+
+    const msg = {
+        id: `msg_${Date.now()}`,
+        tipo: 'text',
+        contenido: texto,
+        timestamp: new Date().toISOString(),
+        remitente: 'yo'
+    };
+    enviarMensaje(msg);
+    messageInput.value = '';
+    simularRespuesta();
+});
+
+function enviarMensaje(msg) {
+    const mensajes = getMessages(currentChat.idContacto) || [];
+    mensajes.push(msg);
+    saveMessages(currentChat.idContacto, mensajes);
+    appendMessage(msg);
+    updateLastMessage(currentChat.idContacto, msg.tipo === 'image' ? '[Imagen]' : msg.contenido);
+    updateChatItemLastMessage(currentChat.idContacto, msg.tipo === 'image' ? '[Imagen]' : msg.contenido);
+}
+//respuesta simulada
+function simularRespuesta() {
+    if (!currentChat) return;
+    const idContacto = currentChat.idContacto;
+
+    setTimeout(() => {
+        const mensajes = getMessages(idContacto) || [];
+        //solo los mensajes de texto del contacto como posibles para respuestas
+        const posibles = mensajes.filter(m => m.remitente === 'el' && m.tipo === 'text');
+        if (posibles.length === 0) return;
+        const original = posibles[Math.floor(Math.random() * posibles.length)];
+        const msg = {
+            id: `msg_${Date.now()}`,
+            tipo: 'text',
+            contenido: original.contenido,
+            timestamp: new Date().toISOString(),
+            remitente: 'el'
+        }
+        mensajes.push(msg);
+        saveMessages(idContacto, mensajes);
+
+        if (currentChat && currentChat.idContacto === idContacto) {
+            appendMessage(msg);
+            updateLastMessage(idContacto, msg.contenido);
+            updateChatItemLastMessage(idContacto, msg.contenido);
+        }
+    }, 1200);
+}
+
+//carga de imagenes con fileReader
+const imageInput = document.getElementById('image-input');
+
+
+imageInput.addEventListener('change', () => {
+    const file = imageInput.files[0];
+    if (!file || !currentChat) return;
+ 
+    const reader = new FileReader();
+ 
+    reader.addEventListener('load', () => {
+        const msg = {
+            id: `msg_${Date.now()}`,
+            tipo: 'image',
+            contenido: reader.result,
+            timestamp: new Date().toISOString(),
+            remitente: 'yo'
+        };
+ 
+        enviarMensaje(msg);
+        imageInput.value = '';
+    });
+ 
+    reader.readAsDataURL(file);
+});
+

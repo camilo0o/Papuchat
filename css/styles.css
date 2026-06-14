@@ -1,20 +1,26 @@
 /*variables globales*/
 :root {
     --color-primary: #005c4b;
+    --color-primary-hover: #007a63;
     --color-primary-light: #4ebd33;
     --color-bg-app: #dadada;
     --color-bg-sidebar: #f0f0f0;
-    --color-bg-chat: rgb(168, 163, 163);
+    --color-bg-chat: #a8a3a3;
     --color-text-light: #ffffff;
-    --color-text-muted: #555;
-    --color-avatar: #ccc;
-    --color-input-border: #ccc;
+    --color-text-dark: #111111;
+    --color-text-muted: #555555;
+    --color-avatar-bg: #cccccc;
+    --color-input-border: #cccccc;
     --color-item-hover: #e0e0e0;
+    --color-msg-sent: #dcf8c6;
+    --color-msg-received: #ffffff;
+    --color-error: #c0392b;
     --radius-bubble: 10px;
     --radius-avatar: 50%;
+    --radius-msg: 12px;
     --font-stack: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
-    --mobile-breakpoint: 770px;
 }
+
 
 
 /*reset global de margenes, padding, modelo de caja y tipografia*/
@@ -40,7 +46,7 @@
 
 body {
     height: 100vh;
-        background-color: var(--color-bg-app);
+    background-color: var(--color-bg-app);
 }
 .app {
     display: flex;
@@ -131,7 +137,7 @@ body {
     width: 50px;
     height: 50px;
     border-radius: var(--radius-avatar);
-    background-color: var(--color-avatar);
+    background-color: var(--color-avatar-bg);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -153,6 +159,62 @@ body {
     gap: 8px;
 
 }
+/*burbuja de mensaje*/
+.message{
+    max-width: 65%;
+    padding: 10px 14px;
+    border-radius: var(--radius-msg);
+    font-size: 14px;
+    line-height: 1.5;
+    word-wrap: break-word;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.15);
+    animation: fadeInMsg 0.2s ease;
+}
+
+@keyframes fadeInMsg {
+    from{
+        opacity: 0;
+        transform: translateY(6px);
+    }to{
+        opacity: 1;
+        transform: translateY(0);
+    }
+    
+}
+.message--sent {
+    align-self: flex-end;
+    background-color: var(--color-msg-sent);
+    border-bottom-right-radius: 2px;
+}
+
+.message--received {
+    align-self: flex-start;
+    background-color: var(--color-msg-received);
+    border-bottom-left-radius: 2px;
+}
+ 
+.message-text {
+    color: var(--color-text-dark);
+}
+ 
+.message-time {
+    font-size: 11px;
+    color: var(--color-text-muted);
+    align-self: flex-end;
+}
+ 
+.message-image {
+    max-width: 100%;
+    max-height: 220px;
+    border-radius: 8px;
+    object-fit: cover;
+    cursor: pointer;
+}
+
+
 #message-form{
     padding: 20px;
     background-color: var(--color-bg-sidebar);
@@ -180,13 +242,15 @@ body {
 button{
     padding: 15px 20px;
     border: none;
-    border-radius: 10px;
-    background-color:#005c4b;
-    color: white;
+    border-radius: var(--radius-bubble);
+    background-color: var(--color-primary);
+    color: var(--color-text-light);
     cursor: pointer;
+    font-size: 15px;
+    transition: background-color 0.2s ease;
 }
 button:hover {
-    background-color: #007a63;
+    background-color: var(--color-primary-hover);
 }
  
 button:focus {
@@ -194,9 +258,40 @@ button:focus {
     outline-offset: 2px;
 }
 
+/*boton de adjuntar imagen*/
+.image-input-label {
+    font-size: 14px;
+    cursor: pointer;
+    padding: 8px 12px;
+    border-radius: var(--radius-bubble);
+    background-color: var(--color-primary);
+    color: var(--color-text-light);
+    transition: background-color 0.2s ease;
+    user-select: none;
+    white-space: nowrap;
+}
+ 
+.image-input-label:hover {
+    background-color: var(--color-primary-hover);
+}
+
+/*estados de carga y error*/
+.chat-loading,
+.chat-error {
+    text-align: center;
+    padding: 20px;
+    color: var(--color-text-muted);
+    font-size: 14px;
+}
+
+.chat-error {
+    color: var(--color-error);
+}
+
+
 /* responsive mobile */
 @media (max-width: 770px) {
-        .chat-list {
+    .chat-list {
         width: 100%;
     }
  
@@ -214,16 +309,12 @@ button:focus {
     }
  
     #back-button {
-        display: flex;
-        align-items: center;
-        gap: 8px;
         background-color: transparent;
-        border: none;
         color: var(--color-text-light);
         font-size: 16px;
-        cursor: pointer;
         padding: 0;
         border-radius: 0;
+        border: none;
     }
  
     #back-button:hover {
@@ -234,6 +325,7 @@ button:focus {
     .chat-info p {
         max-width: 220px;
     }
+
 
 }
 /* en desktop nunca mostrar el boton volver */

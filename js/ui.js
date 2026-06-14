@@ -12,7 +12,7 @@ function renderChatList(chats, onChatClick) {
         li.classList.add('chat-item');
         li.setAttribute('tabindex', '0');
         li.setAttribute('role', 'button');
-        li.setAttribute('aria-label', 'abrir conversacion con ${chat.nombre}');
+        li.setAttribute('aria-label', `abrir conversación con ${chat.nombre}`);
         li.dataset.id = chat.idContacto;
         li.innerHTML = `
             <div class="avatar" aria-hidden="true">${chat.nombre[0].toUpperCase()}</div>
