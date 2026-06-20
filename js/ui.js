@@ -60,7 +60,8 @@ function setActiveChatItem(idContacto) {
 
 function renderChatHeader(chat) {
     chatUsernameEl.textContent = chat.nombre;
-    chatAvatarEl.alt = `Avatar de ${chat.nombre}`;
+    chatAvatarEl.textContent = chat.nombre[0].toUpperCase();
+    chatAvatarEl.setAttribute('aria-label', `Avatar de ${chat.nombre}`);
 }
 
 function renderMessages(mensajes) {

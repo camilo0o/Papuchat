@@ -1,8 +1,8 @@
-/*variables globales*/
+/*variables globales - custom properties*/
 :root {
-    --color-primary: #005c4b;
-    --color-primary-hover: #007a63;
-    --color-primary-light: #4ebd33;
+    --color-primary: #0b0d74;
+    --color-primary-hover: #2326c5;
+    --color-primary-light: #3591ce;
     --color-bg-app: #dadada;
     --color-bg-sidebar: #f0f0f0;
     --color-bg-chat: #a8a3a3;
@@ -20,8 +20,6 @@
     --radius-msg: 12px;
     --font-stack: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
 }
-
-
 
 /*reset global de margenes, padding, modelo de caja y tipografia*/
 *, *::before, *::after {
@@ -157,7 +155,6 @@ body {
     display: flex;
     flex-direction: column;
     gap: 8px;
-
 }
 /*burbuja de mensaje*/
 .message{
