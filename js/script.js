@@ -61,10 +61,16 @@ async function openChat(chat) {
 loadChats();
 
 //envio de mensajes de texto
+const sendButton = messageForm.querySelector('button[type="submit"]');
+
 messageForm.addEventListener('submit', (e) => {
     e.preventDefault();
     const texto = messageInput.value.trim();
     if (!texto || !currentChat) return;
+
+    sendButton.classList.remove('bounce');
+    sendButton.offsetWidth; //forzar reflow para reiniciar la animación
+    sendButton.classList.add('bounce');
 
     const msg = {
         id: `msg_${Date.now()}`,
@@ -86,15 +92,28 @@ function enviarMensaje(msg) {
     updateLastMessage(currentChat.idContacto, msg.tipo === 'image' ? '[Imagen]' : msg.contenido);
     updateChatItemLastMessage(currentChat.idContacto, msg.tipo === 'image' ? '[Imagen]' : msg.contenido);
 }
+
 //respuesta simulada
 function simularRespuesta() {
     if (!currentChat) return;
     const idContacto = currentChat.idContacto;
 
+    //mostrar "escribiendo..." casi de inmediato
+    setTimeout(() => {
+        if (currentChat && currentChat.idContacto === idContacto) {
+            showTypingIndicator();
+        }
+    }, 300);
+
     setTimeout(() => {
         const mensajes = getMessages(idContacto) || [];
         //solo los mensajes de texto del contacto como posibles para respuestas
         const posibles = mensajes.filter(m => m.remitente === 'el' && m.tipo === 'text');
+
+        if (currentChat && currentChat.idContacto === idContacto) {
+            hideTypingIndicator();
+        }
+
         if (posibles.length === 0) return;
         const original = posibles[Math.floor(Math.random() * posibles.length)];
         const msg = {
@@ -112,7 +131,7 @@ function simularRespuesta() {
             updateLastMessage(idContacto, msg.contenido);
             updateChatItemLastMessage(idContacto, msg.contenido);
         }
-    }, 1200);
+    }, 3000);
 }
 
 //carga de imagenes con fileReader
@@ -140,4 +159,3 @@ imageInput.addEventListener('change', () => {
  
     reader.readAsDataURL(file);
 });
-

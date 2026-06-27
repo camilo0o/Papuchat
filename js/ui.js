@@ -101,3 +101,22 @@ function updateChatItemLastMessage(idContacto, texto) {
     if (item) item.textContent = texto;
 
 }
+
+function showTypingIndicator(){
+    const existing = document.getElementById('typing-indicator');
+    if(existing) return;
+
+    const div = document.createElement('div');
+    div.id = 'typing-indicator';
+    div.classList.add('typing-indicator');
+    div.setAttribute('aria-label', 'Escribiendo...');
+    div.innerHTML = '<span></span><span></span><span></span>';
+ 
+    messagesEl.appendChild(div);
+    scrollToBottom();
+}
+
+function hideTypingIndicator(){
+    const existing = document.getElementById('typing-indicator');
+    if (existing) existing.remove();
+}
